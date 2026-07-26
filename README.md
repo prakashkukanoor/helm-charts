@@ -14,3 +14,25 @@ wget -O- http://backend-server.backend/get
 ```
 wget -O- http://backend-server.backend/status/:code
 ```
+
+# Helm-Commands
+
+- Install helm charts
+```
+helm install frontend ./service -f ./service/values-frontend-app.yaml
+```
+
+- Upgrade helm charts
+```
+helm upgrade --install frontend ./service -f ./service/values-frontend-app.yaml
+```
+
+- Render the YAML output
+```
+helm template frontend ./service -f ./service/values-frontend-app.yaml
+```
+
+- DRY RUN Installation
+```
+helm install frontend ./service -f ./service/values-frontend-app.yaml --dry-run --debug
+```
