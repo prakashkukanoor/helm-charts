@@ -9,7 +9,10 @@ application:
   image: busybox
   tag: latest
   imagePullPolicy: IfNotPresent
-  command: ["/bin/sh", "-c", "while true; do sleep 3600; done"]
+  command: 
+   - /bin/sh
+   - -c
+   - while true; do sleep 3600; done
   port: 9090
 sideCar:
   name: sidecar
