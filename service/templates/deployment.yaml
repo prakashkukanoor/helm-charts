@@ -18,7 +18,7 @@ spec:
       serviceAccountName: {{ .Values.application.name }}-sa
       containers:
         - name: {{ .Values.application.name }}
-          image:{{ .Values.application.image }}:{{ .Values.application.tag }
+          image: {{ .Values.application.image }}:{{ .Values.application.tag }}
           imagePullPolicy: {{ .Values.application.imagePullPolicy }}
           {{- if .Values.application.command }}
           command: {{ .Values.application.command | toJson }}
