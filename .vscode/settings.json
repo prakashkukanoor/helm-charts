@@ -1,0 +1,10 @@
+{
+    "yaml.disableSchemaDetection": [
+        "file:///Users/prakashkukanoor/Documents/GIT/k8s-deployments/service/templates/serviceaccount.yaml"
+    ],
+    "yaml.schemas": {
+        "https://www.schemastore.org/chart.json": "file:///Users/prakashkukanoor/Documents/GIT/k8s-deployments/service/templates/serviceaccount.yaml"
+    },
+    "chartProfiles.renderContext.releaseName": "chart-profile",
+    "chartProfiles.renderContext.namespace": "default"
+}
