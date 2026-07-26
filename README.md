@@ -17,14 +17,15 @@ wget -O- http://backend-server.backend/status/:code
 
 # Helm-Commands
 
-- Install helm charts
-```
-helm install frontend ./service -f ./service/values-frontend-app.yaml
-```
-
-- Upgrade helm charts
+- Install/Upgrade helm charts
 ```
 helm upgrade --install frontend ./service -f ./service/values-frontend-app.yaml
+helm upgrade --install backend ./service -f ./service/values-backend-app.yaml
+```
+
+- Install Uninstall
+```
+helm uninstall frontend backend
 ```
 
 - Render the YAML output

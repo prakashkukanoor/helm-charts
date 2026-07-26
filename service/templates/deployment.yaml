@@ -25,8 +25,10 @@ spec:
           {{- end }}
           ports:
             - containerPort: {{ .Values.application.port }}
+        {{- if .Values.sideCar }}
         - name: {{ .Values.sideCar.name }}
           image: "{{ .Values.sideCar.image }}:{{ .Values.sideCar.tag }}"
           imagePullPolicy: {{ .Values.sideCar.imagePullPolicy }}
           ports:
             - containerPort: {{ .Values.sideCar.port}}
+        {{- end }}
