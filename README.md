@@ -2,17 +2,17 @@
 
 - Exec into the pod
 ```
-kubectl exec -it frontend-client-6456b9d84-5vp2m  -n frontend -c frontend-client -- /bin/sh
+kubectl exec -it frontend-client-6456b9d84-5vp2m  -n frontend -c frontend-app -- /bin/sh
 ```
 
 - Make a Get Call by service name. This returns response
 ```
-wget -O- http://backend-server.backend/get
+wget -O- http://backend-app.backend/get
 ```
 
 -  Make a Get Call by service name. This returns Status Code
 ```
-wget -O- http://backend-server.backend/status/:code
+wget -O- http://backend-app.backend/status/:code
 ```
 
 # Helm-Commands
