@@ -1,3 +1,19 @@
+# To-Do
+- Install envoy gateway 
+```
+helm install envoy-gateway oci://docker.io/envoyproxy/gateway-helm --version v1.8.3 -n envoy-gateway-system --create-namespace
+```
+
+- Install envoy proxy 
+```
+kubectl apply -f ./gateway-class/alb-custom-proxy-config.yaml
+```
+
+- Use this image for service
+```
+https://hub.docker.com/r/nginxdemos/nginx-hello
+```
+
 # k8s-deployments-Commands
 
 - Exec into the pod
