@@ -6,10 +6,10 @@
     name: frontend-app
     namespace: frontend
     version: v1.0.0
-    image: nginxdemos/nginx-hello
+    image: nginxdemos/hello
     tag: latest
     imagePullPolicy: IfNotPresent
-    port: 8080
+    port: 80
   # sideCar:
   #   name: sidecar
   #   image: docker.io/mccutchen/go-httpbin

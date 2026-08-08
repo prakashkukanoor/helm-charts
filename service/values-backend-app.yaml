@@ -6,9 +6,9 @@ application:
   name: backend-app
   namespace: backend
   version: v1.0.0
-  image: docker.io/mccutchen/go-httpbin
-  tag: v2.15.0
+  image: nginxdemos/hello
+  tag: latest
   imagePullPolicy: IfNotPresent
-  port: 8080
+  port: 80
   
 

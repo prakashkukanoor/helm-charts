@@ -1,17 +1,18 @@
-# To-Do
+# Setup Steps
+- Install frontend application 
+```
+helm upgrade --install frontend ./service -f ./service/values-frontend-app.yaml
+helm upgrade --install backend ./service -f ./service/values-backend-app.yaml
+```
+
 - Install envoy gateway 
 ```
 helm install envoy-gateway oci://docker.io/envoyproxy/gateway-helm --version v1.8.3 -n envoy-gateway-system --create-namespace
 ```
 
-- Install envoy proxy 
+- Install envoy proxy & Route 
 ```
-kubectl apply -f ./gateway-class/alb-custom-proxy-config.yaml
-```
-
-- Use this image for service
-```
-https://hub.docker.com/r/nginxdemos/nginx-hello
+kubectl apply -R -f ./gateway-class/
 ```
 
 # k8s-deployments-Commands

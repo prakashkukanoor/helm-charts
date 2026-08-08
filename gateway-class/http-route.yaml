@@ -41,18 +41,6 @@ spec:
         - name: frontend-app
           namespace: frontend # Routes across namespaces seamlessly
           port: 80 
-
-    # # 2. Specific Auth Path -> Goes to auth service
-    # - matches:
-    #     - path:
-    #         type: PathPrefix
-    #         value: /auth
-    #   backendRefs:
-    #     - name: auth-service
-    #       namespace: auth
-    #       port: 9000
-
-    # 3. Catch-All Path -> Goes to your frontend app
     - matches:
         - path:
             type: PathPrefix
@@ -60,4 +48,18 @@ spec:
       backendRefs:
         - name: frontend-app
           namespace: frontend # Routes across namespaces seamlessly
+          port: 80
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /backend-app
+      filters:
+        - type: URLRewrite # <--- Add this rewrite filter block
+          urlRewrite:
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: / # <--- Strip /frontend-app and change
+      backendRefs:
+        - name: backend-app
+          namespace: backend # Routes across namespaces seamlessly
           port: 80

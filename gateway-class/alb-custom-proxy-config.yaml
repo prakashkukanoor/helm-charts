@@ -36,6 +36,9 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
+        kinds: # <--- ADD THIS EXPLICIT KIND TRUST BLOCK
+          - group: gateway.networking.k8s.io
+            kind: HTTPRoute
 ---
 apiVersion: v1
 kind: Service
