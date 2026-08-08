@@ -1,0 +1,61 @@
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyProxy
+metadata:
+  name: alb-proxy-config
+  namespace: envoy-gateway-system
+spec:
+  provider:
+    type: Kubernetes
+    kubernetes:
+      envoyService:
+        type: ClusterIP
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: GatewayClass
+metadata:
+  name: envoy-gateway
+spec:
+  controllerName: gateway.envoyproxy.io/gatewayclass-controller
+  parametersRef:
+    group: gateway.envoyproxy.io
+    kind: EnvoyProxy
+    name: alb-proxy-config
+    namespace: envoy-gateway-system
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: external-alb-gateway
+  namespace: envoy-gateway-system
+spec:
+  gatewayClassName: envoy-gateway 
+  listeners:
+    - name: http
+      protocol: HTTP
+      port: 80
+      allowedRoutes:
+        namespaces:
+          from: All
+        kinds: # <--- ADD THIS EXPLICIT KIND TRUST BLOCK
+          - group: gateway.networking.k8s.io
+            kind: HTTPRoute
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: alb-nodeport-service
+  namespace: envoy-gateway-system
+spec:
+  type: NodePort
+  selector:
+    gateway.envoyproxy.io/owning-gateway-name: external-alb-gateway
+    gateway.envoyproxy.io/owning-gateway-namespace: envoy-gateway-system
+  ports:
+    - name: http
+      port: 80
+      targetPort: 10080
+      nodePort: 31234
+    - name: envoy-ready
+      port: 19003
+      targetPort: 19003
+      nodePort: 31903 # Point your AWS ALB Target Group health check to this NodePort

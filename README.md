@@ -1,3 +1,20 @@
+# Setup Steps
+- Install frontend application 
+```
+helm upgrade --install frontend ./service -f ./service/values-frontend-app.yaml
+helm upgrade --install backend ./service -f ./service/values-backend-app.yaml
+```
+
+- Install envoy gateway 
+```
+helm install envoy-gateway oci://docker.io/envoyproxy/gateway-helm --version v1.8.3 -n envoy-gateway-system --create-namespace
+```
+
+- Install envoy proxy & Route 
+```
+kubectl apply -R -f ./gateway-class/
+```
+
 # k8s-deployments-Commands
 
 - Exec into the pod
