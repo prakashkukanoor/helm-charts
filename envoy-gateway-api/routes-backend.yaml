@@ -24,4 +24,12 @@ spec:
       backendRefs:
         - name: backend-app
           namespace: backend
+          port: 80 
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: backend-app
+          namespace: backend
           port: 80
