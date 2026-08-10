@@ -1,18 +1,31 @@
-  replicas: 3
-  service:
-    name: http
-    port: 80
-  application:
-    name: frontend-app
-    namespace: frontend
-    version: v1.0.0
-    image: nginxdemos/hello
-    tag: latest
-    imagePullPolicy: IfNotPresent
-    port: 80
-  # sideCar:
-  #   name: sidecar
-  #   image: docker.io/mccutchen/go-httpbin
-  #   tag: v2.15.0
-  #   imagePullPolicy: IfNotPresent
-  #   port: 8080
+replicas: 3
+
+service:
+  name: http
+  port: 80
+
+application:
+  name: frontend-app
+  namespace: frontend
+  version: v1.0.0
+  image: nginxdemos/hello
+  tag: latest
+  imagePullPolicy: IfNotPresent
+  port: 80
+
+gateway:
+  name: external-lb-gateway
+  namespace: envoy-gateway-system
+
+routes:
+  - protocol: http
+    pathPrefix: /frontend-app
+    urlRewrite:
+      PathPrefix: /
+
+# sideCar:
+#   name: sidecar
+#   image: docker.io/mccutchen/go-httpbin
+#   tag: v2.15.0
+#   imagePullPolicy: IfNotPresent
+#   port: 8080
