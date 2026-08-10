@@ -10,9 +10,9 @@ helm upgrade --install backend ./service -f ./service/values-backend-app.yaml
 helm install envoy-gateway oci://docker.io/envoyproxy/gateway-helm --version v1.8.3 -n envoy-gateway-system --create-namespace
 ```
 
-- Install envoy proxy & Route 
+- Install envoy gateway proxy & Route 
 ```
-kubectl apply -R -f ./gateway-class/
+kubectl apply -R -f ./envoy-gateway-api/
 ```
 
 # k8s-deployments-Commands
