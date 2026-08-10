@@ -1,4 +1,4 @@
-# Setup Steps
+# Install Envoy gateway and application
 - Install frontend application 
 ```
 helm upgrade --install frontend ./service -f ./service/values-frontend-app.yaml
@@ -15,29 +15,11 @@ helm install envoy-gateway oci://docker.io/envoyproxy/gateway-helm --version v1.
 kubectl apply -R -f ./envoy-gateway-api/
 ```
 
-# k8s-deployments-Commands
-
-- Exec into the pod
-```
-kubectl exec -it frontend-client-6456b9d84-5vp2m  -n frontend -c frontend-app -- /bin/sh
-```
-
-- Make a Get Call by service name. This returns response
-```
-wget -O- http://backend-app.backend/get
-```
-
--  Make a Get Call by service name. This returns Status Code
-```
-wget -O- http://backend-app.backend/status/:code
-```
-
 # Helm-Commands
 
-- Install/Upgrade helm charts
+- Create new helm chart or template
 ```
-helm upgrade --install frontend ./service -f ./service/values-frontend-app.yaml
-helm upgrade --install backend ./service -f ./service/values-backend-app.yaml
+helm create <chart-name>
 ```
 
 - Install Uninstall
