@@ -1,3 +1,7 @@
+  # ==============================================================================
+  # MODULE COMPONENT: Envoy gateway API
+  # DESCRIPTION: Envoy gateway configurations
+  # ==============================================================================
 namespace: envoy-gateway-system
 class:
   name: envoy-gateway-class
@@ -11,3 +15,8 @@ envoyProxy:
   lb_healthCheck_port: 31903
 gateway:
   name: external-lb-gateway
+# ==============================================================================
+  # MODULE COMPONENT: Envoy gateway API
+  # DESCRIPTION: Application Routes
+# ==============================================================================
+
