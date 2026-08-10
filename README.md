@@ -1,8 +1,8 @@
 # Install Envoy gateway and application
 - Install frontend application 
 ```
-helm upgrade --install frontend ./service -f ./service/values-frontend-app.yaml
-helm upgrade --install backend ./service -f ./service/values-backend-app.yaml
+helm upgrade --install frontend ./app-service -f ./app-service/values-frontend-app.yaml
+helm upgrade --install backend ./app-service -f ./app-service/values-backend-app.yaml
 ```
 
 - Install envoy gateway 
