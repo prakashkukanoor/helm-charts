@@ -1,0 +1,36 @@
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyProxy
+metadata:
+  name:  {{ .Values.envoyProxy.name }}
+  namespace: {{ .Values.gateway.namespace }}
+spec:
+  provider:
+    type: Kubernetes
+    kubernetes:
+      envoyDaemonSet: {} 
+      envoyService:
+        type: NodePort
+        patch:
+          type: StrategicMerge
+          value:
+            spec:
+              ports:
+              - name: http
+                port: 80
+                nodePort: {{ .Values.envoyProxy.lb_targetGroup_port }}
+              - name: health
+                port: {{ .Values.envoyProxy.healthCheck_port }}
+                targetPort: {{ .Values.envoyProxy.healthCheck_port }}
+                nodePort: {{ .Values.envoyProxy.lb_healthCheck_port }}
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: GatewayClass
+metadata:
+  name: {{ .Values.class.name }}
+spec:
+  controllerName: {{ .Values.class.controllerName }}
+  parametersRef:
+    group: {{ .Values.envoyProxy.group }}
+    kind: {{ .Values.envoyProxy.kind }}
+    name: {{ .Values.envoyProxy.name }}
+    namespace: {{ .Values.gateway.namespace }}

@@ -10,5 +10,15 @@ application:
   tag: latest
   imagePullPolicy: IfNotPresent
   port: 80
+
+gateway:
+  name: external-lb-gateway
+  namespace: envoy-gateway-system
+
+routes:
+  - protocol: http
+    pathPrefix: /backend-app
+    urlRewrite:
+      PathPrefix: /
   
 

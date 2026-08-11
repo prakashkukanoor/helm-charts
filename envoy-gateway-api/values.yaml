@@ -1,0 +1,34 @@
+  # ==============================================================================
+  # MODULE COMPONENT: Envoy gateway API
+  # DESCRIPTION: Envoy gateway configurations
+  # ==============================================================================
+class:
+  name: envoy-gateway-class
+  controllerName: gateway.envoyproxy.io/gatewayclass-controller
+envoyProxy:
+  name: envoy-proxy-service
+  group: gateway.envoyproxy.io
+  kind: EnvoyProxy
+  lb_targetGroup_port: 31234
+  healthCheck_port: 19003
+  lb_healthCheck_port: 31903
+gateway:
+  name: external-lb-gateway
+  namespace: envoy-gateway-system
+# ==============================================================================
+  # MODULE COMPONENT: Envoy gateway API
+  # DESCRIPTION: Application Routes
+# ==============================================================================
+routes:
+  - name: frontend-app
+    namespace: frontend
+    protocol: http
+    pathPrefix: /frontend-app
+    urlRewrite:
+      PathPrefix: /
+  - name: backend-app
+    namespace: backend
+    protocol: http
+    pathPrefix: /backend-app
+    urlRewrite:
+      PathPrefix: /

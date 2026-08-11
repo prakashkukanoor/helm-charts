@@ -1,8 +1,12 @@
-# Setup Steps
-- Install frontend application 
+# Install Envoy gateway and application
+- Install all below from single command
 ```
-helm upgrade --install frontend ./service -f ./service/values-frontend-app.yaml
-helm upgrade --install backend ./service -f ./service/values-backend-app.yaml
+aws eks update-kubeconfig --region us-east-1 --name purchase-eks1-33-dev --profile dev && \
+helm install envoy-gateway oci://docker.io/envoyproxy/gateway-helm --version v1.8.3 -n envoy-gateway-system --create-namespace && \
+helm upgrade --install envoy-gateway-api ./envoy-gateway-api/ -f ./envoy-gateway-api/values.yaml && \
+helm upgrade --install frontend ./app-service -f ./app-service/values-frontend-app.yaml && \
+helm upgrade --install backendend ./app-service -f ./app-service/values-backend-app.yaml
+
 ```
 
 - Install envoy gateway 
@@ -12,32 +16,20 @@ helm install envoy-gateway oci://docker.io/envoyproxy/gateway-helm --version v1.
 
 - Install envoy gateway proxy & Route 
 ```
-kubectl apply -R -f ./envoy-gateway-api/
+helm upgrade --install envoy-gateway-api ./envoy-gateway-api/ -f ./envoy-gateway-api/values.yaml
 ```
 
-# k8s-deployments-Commands
-
-- Exec into the pod
+- Install frontend & backend application 
 ```
-kubectl exec -it frontend-client-6456b9d84-5vp2m  -n frontend -c frontend-app -- /bin/sh
-```
-
-- Make a Get Call by service name. This returns response
-```
-wget -O- http://backend-app.backend/get
-```
-
--  Make a Get Call by service name. This returns Status Code
-```
-wget -O- http://backend-app.backend/status/:code
+helm upgrade --install frontend ./app-service -f ./app-service/values-frontend-app.yaml
+helm upgrade --install backendend ./app-service -f ./app-service/values-backend-app.yaml
 ```
 
 # Helm-Commands
 
-- Install/Upgrade helm charts
+- Create new helm chart or template
 ```
-helm upgrade --install frontend ./service -f ./service/values-frontend-app.yaml
-helm upgrade --install backend ./service -f ./service/values-backend-app.yaml
+helm create <chart-name>
 ```
 
 - Install Uninstall
@@ -52,5 +44,5 @@ helm template frontend ./service -f ./service/values-frontend-app.yaml
 
 - DRY RUN Installation
 ```
-helm install frontend ./service -f ./service/values-frontend-app.yaml --dry-run --debug
+helm install frontend ./service -f ./service/values-frontend-app.yaml --dry-run="client" --debug
 ```
