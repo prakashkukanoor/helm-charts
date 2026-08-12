@@ -3,9 +3,9 @@
 ```
 aws eks update-kubeconfig --region us-east-1 --name purchase-eks1-33-dev --profile dev && \
 helm install envoy-gateway oci://docker.io/envoyproxy/gateway-helm --version v1.8.3 -n envoy-gateway-system --create-namespace && \
-helm upgrade --install envoy-gateway-api ./envoy-gateway-api/ -f ./envoy-gateway-api/values.yaml && \
-helm upgrade --install frontend ./app-service -f ./app-service/values-frontend-app.yaml && \
-helm upgrade --install backendend ./app-service -f ./app-service/values-backend-app.yaml
+helm upgrade --install envoy-gateway-api ./envoy-gateway-api/ -f ./envoy-gateway-api/dev/values.yaml && \
+helm upgrade --install frontend ./application -f ./application/values-frontend-app.yaml && \
+helm upgrade --install backendend ./application -f ./application/values-backend-app.yaml
 
 ```
 
@@ -16,13 +16,13 @@ helm install envoy-gateway oci://docker.io/envoyproxy/gateway-helm --version v1.
 
 - Install envoy gateway proxy & Route 
 ```
-helm upgrade --install envoy-gateway-api ./envoy-gateway-api/ -f ./envoy-gateway-api/values.yaml
+helm upgrade --install envoy-gateway-api ./envoy-gateway-api/ -f ./envoy-gateway-api/dev/values.yaml
 ```
 
 - Install frontend & backend application 
 ```
-helm upgrade --install frontend ./app-service -f ./app-service/values-frontend-app.yaml
-helm upgrade --install backendend ./app-service -f ./app-service/values-backend-app.yaml
+helm upgrade --install frontend ./application -f ./application/values-frontend-app.yaml
+helm upgrade --install backendend ./application -f ./application/values-backend-app.yaml
 ```
 
 # Helm-Commands
