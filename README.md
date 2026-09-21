@@ -9,6 +9,12 @@ helm upgrade --install backendend ./application -f ./application/values-backend-
 
 ```
 
+- Check if service is returning the response 
+```
+http://<LB-URL>/frontend-app
+http://<LB-URL>/backend-app
+```
+
 - Install envoy gateway 
 ```
 helm install envoy-gateway oci://docker.io/envoyproxy/gateway-helm --version v1.8.3 -n envoy-gateway-system --create-namespace
