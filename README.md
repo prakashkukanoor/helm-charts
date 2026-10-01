@@ -12,6 +12,8 @@ helm upgrade --install backendend ./application -f ./application/values-backend-
 - Check if service is returning the response 
 ```
 http://<LB-URL>/frontend-app
+```
+```
 http://<LB-URL>/backend-app
 ```
 
